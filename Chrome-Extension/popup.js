@@ -258,9 +258,50 @@ document.addEventListener("DOMContentLoaded", () => {
   async function generateContent(text, actionType) {
     let prompt = "";
     if (actionType === "quiz") {
-      prompt = `Generate multiple-choice questions from the following text and provide answer in curly brackets, eg {A}. Place the answer at the end:\n\n${text}`;
+      prompt = `Generate multiple-choice questions in strict JSON format from the text below. Follow these requirements:
+
+1. JSON Structure:
+{
+  "subject": "Explicit subject category (e.g., CHEMISTRY)",
+  "questions": [
+    {
+      "question": "Clear question phrasing",
+      "options": {
+        "A": "Plausible distractor",
+        "B": "Correct answer",
+        "C": "Related distractor", 
+        "D": "Common misconception"
+      },
+      "answer": "B",
+      "explanation": "Concise 1-sentence rationale"
+    }
+  ]
+}
+
+2. Content Rules:
+- Questions must test key concepts from the text
+- Answer must be unambiguously correct
+- Distractors should be plausible but incorrect
+- Explanations should clarify why the answer is correct
+- Subject category must be specific and accurate
+
+3. Formatting Rules:
+- Only return valid JSON (no markdown, no text wrapping)
+- Escape special characters properly
+- Maintain alphabetical option order
+- Use double quotes throughout
+- No trailing commas
+
+Text: ${text}
+
+JSON:`;
     } else if (actionType === "summary") {
-      prompt = `Summarize the following text:\n\n${text}`;
+      prompt = `Summarize the following text in strict JSON format from the text below. Follow these requirements:
+{
+  "subject": "Explicit subject category (e.g., CHEMISTRY)",
+  "summary": "text..."
+}
+      \n\n${text}`;
     }
 
     sendToOpenAI(prompt, actionType);
@@ -279,28 +320,91 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify({
           model: "gpt-3.5-turbo",
           messages: [{ role: "user", content: prompt }],
-          max_tokens: 600,
-          temperature: 0.7
+          response_format: { type: "json_object" },
+          max_tokens: 1000,
+          temperature: 0.3
         })
       });
-
+  
       const result = await response.json();
-      let output = "No response generated.";
-      if (result.choices && result.choices[0] && result.choices[0].message) {
-        output = result.choices[0].message.content.trim();
+  
+      if (!result.choices?.[0]?.message?.content) {
+        throw new Error("No valid response generated");
+      }
+  
+      const output = result.choices[0].message.content.trim();
+      console.log(`Raw API response:`, output);
+  
+      // Clean and parse JSON
+      const jsonMatch = output.match(/{[\s\S]*}/);
+      if (!jsonMatch) throw new Error("No valid JSON found");
+      
+      const parsedData = JSON.parse(jsonMatch[0]);
+      console.log("Parsed data:", parsedData);
+  
+      // Validate structure
+      if (actionType === "quiz") {
+        if (!parsedData.subject || !parsedData.questions) {
+          throw new Error("Invalid quiz format - missing required fields");
+        }
+      } else if (actionType === "summary") {
+        if (!parsedData.subject || !parsedData.summary) {
+          throw new Error("Invalid summary format - missing subject or summary");
+        }
       }
 
-      console.log(`Generated ${actionType}:`, output);
-
-      // Send quiz or summary content to sidepanel.js
+       // After successful validation
+    const storageResponse = await storeGeneratedContent(actionType, parsedData);
+    
+    if (!storageResponse) {
+      console.log("Content not stored");
+    }
+  
+      // Send validated data
       chrome.runtime.sendMessage({
         action: "updateSidePanel",
         contentType: actionType,
-        content: output
+        content: parsedData
       });
-
+  
     } catch (error) {
       console.error(`Error generating ${actionType}:`, error);
+      chrome.runtime.sendMessage({
+        action: "updateSidePanel",
+        contentType: "error",
+        content: error.message
+      });
+
+    }
+  
+
+  }
+
+  async function storeGeneratedContent(contentType, contentData) {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        console.log("User not authenticated, skipping storage");
+        return;
+      }
+  
+      const { data, error } = await supabase
+        .from('generated_content')
+        .insert([{
+          user_id: user.id,
+          content_type: contentType,
+          subject: contentData.subject,
+          content: contentData
+        }])
+        .select();
+  
+      if (error) throw error;
+      console.log("Stored content:", data);
+      return data;
+    } catch (error) {
+      console.error("Storage error:", error);
+      return null;
     }
   }
 });
