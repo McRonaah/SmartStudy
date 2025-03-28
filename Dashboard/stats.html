@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Statistics | Smart Study</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.css">
+    <link rel="stylesheet" href="stats.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-brain"></i>
+                <span>Smart Study</span>
+            </div>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="quiz.html" class="nav-link">
+                    <i class="fas fa-question-circle"></i> Quizzes
+                </a>
+                <a href="attempts.html" class="nav-link">
+                    <i class="fas fa-history"></i> My Attempts
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header-section">
+            <h1><i class="fas fa-chart-line"></i> My Learning Statistics</h1>
+            <p class="subtitle">Track your progress and performance across all quizzes</p>
+        </div>
+
+        <div class="stats-grid">
+            <!-- Overall Performance Card -->
+            <div class="stat-card wide">
+                <div class="stat-header">
+                    <h2><i class="fas fa-trophy"></i> Overall Performance</h2>
+                </div>
+                <div class="stat-content">
+                    <div class="overall-stats">
+                        <div class="overall-stat">
+                            <div class="stat-value" id="total-quizzes">0</div>
+                            <div class="stat-label">Quizzes Taken</div>
+                        </div>
+                        <div class="overall-stat">
+                            <div class="stat-value" id="total-attempts">0</div>
+                            <div class="stat-label">Total Attempts</div>
+                        </div>
+                        <div class="overall-stat">
+                            <div class="stat-value" id="avg-score">0%</div>
+                            <div class="stat-label">Average Score</div>
+                        </div>
+                        <div class="overall-stat">
+                            <div class="stat-value" id="best-score">0%</div>
+                            <div class="stat-label">Best Score</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Over Time -->
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h2><i class="fas fa-calendar-alt"></i> Progress Over Time</h2>
+                </div>
+                <div class="stat-content">
+                    <canvas id="progressChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Score Distribution -->
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h2><i class="fas fa-chart-pie"></i> Score Distribution</h2>
+                </div>
+                <div class="stat-content">
+                    <canvas id="scoreChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Quiz Performance -->
+            <div class="stat-card wide">
+                <div class="stat-header">
+                    <h2><i class="fas fa-list-ol"></i> Quiz Performance</h2>
+                    <div class="sort-controls">
+                        <select id="sort-quizzes">
+                            <option value="recent">Most Recent</option>
+                            <option value="best">Best Scores</option>
+                            <option value="worst">Worst Scores</option>
+                            <option value="name">Quiz Name</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="stat-content">
+                    <div class="quiz-performance-table">
+                        <div class="table-header">
+                            <div class="col quiz-name">Quiz Name</div>
+                            <div class="col attempts">Attempts</div>
+                            <div class="col best-score">Best Score</div>
+                            <div class="col avg-score">Avg Score</div>
+                            <div class="col last-attempt">Last Attempt</div>
+                        </div>
+                        <div class="table-body" id="quiz-performance-body">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weakest Areas -->
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h2><i class="fas fa-exclamation-triangle"></i> Weakest Areas</h2>
+                </div>
+                <div class="stat-content">
+                    <div class="weak-areas-list" id="weak-areas">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Improvement Timeline -->
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h2><i class="fas fa-chart-line"></i> Improvement</h2>
+                </div>
+                <div class="stat-content">
+                    <canvas id="improvementChart"></canvas>
+                    <div class="improvement-stats">
+                        <div class="improvement-stat">
+                            <span id="improvement-percent">0%</span>
+                            <span>Improvement</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Smart Study. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="stats.js"></script>
+</body>
+</html>

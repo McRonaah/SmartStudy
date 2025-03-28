@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Review | PDF Question Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="quiz_summary.css">
+    <style>
+        .download-options {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.download-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.download-button:hover {
+    opacity: 0.9;
+}
+
+#download-pdf {
+    background: #d32f2f;
+    color: white;
+}
+
+#download-txt {
+    background: #333;
+    color: white;
+}
+    </style>
+    
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <button onclick="goBack()" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <h1>Document Review </h1>
+        <div class="header-spacer"></div>
+    </header>
+
+    <!-- Main Content - Full width -->
+    <main class="content-container">
+        <!-- Document Info - Without card -->
+        <div class="document-header">
+            <i class="fas fa-file-alt document-icon"></i>
+            <div>
+                <h2 id="file-name">Loading document...</h2>
+                <div class="document-meta">
+                    <span id="upload-date"><i class="far fa-calendar-alt"></i> Loading date...</span>
+                    <span id="question-count"><i class="far fa-question-circle"></i> Loading questions...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <nav class="tab-navigation">
+            <button id="summary-tab" class="tab-button active" onclick="showTab('summary')">
+                <i class="fas fa-file-contract"></i> Summary
+            </button>
+            <button id="quiz-tab" class="tab-button" onclick="redirectToQuiz()">
+                <i class="fas fa-question-circle"></i> Quiz
+            </button>
+        </nav>
+
+        <!-- Summary Content - Full width -->
+        <section id="summary-content" class="tab-content active">
+            <div class="section-header">
+                <h2><i class="fas fa-file-contract"></i> Document Summary</h2>
+                
+
+            </div>
+            
+            <div id="summary-text" class="summary-content">
+                <div class="loading-animation">
+                    <div class="spinner"></div>
+                    <p>Loading summary content...</p>
+                </div>
+            </div>
+            <div class="download-options">
+                <button id="download-pdf" class="download-button">
+                    <i class="fas fa-file-pdf"></i> Download PDF
+                </button>
+                <button id="download-txt" class="download-button">
+                    <i class="fas fa-file-alt"></i> Download TXT
+                </button>
+            </div>
+        </section>
+
+        <!-- Quiz Content - Full width -->
+        <section id="quiz-content" class="tab-content">
+            <div class="section-header">
+                <h2><i class="fas fa-question-circle"></i> Document Quiz</h2>
+                <div id="quiz-progress" class="progress-indicator">0/0 questions</div>
+            </div>
+            <div id="quiz-questions" class="quiz-content">
+                <div class="loading-animation">
+                    <div class="spinner"></div>
+                    <p>Preparing quiz questions...</p>
+                </div>
+            </div>
+            <button id="start-quiz" class="primary-button">
+                <i class="fas fa-play"></i> Begin Quiz
+            </button>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <p>© 2025 Smart Study. All rights reserved.</p>
+        
+    </footer>
+
+    <script type="module" src="quiz_summary.js"></script>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function showTab(tab) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tab buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected tab content and activate its button
+            document.getElementById(`${tab}-content`).classList.add('active');
+            document.getElementById(`${tab}-tab`).classList.add('active');
+        }
+
+        function getDocIdFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get("docId");
+        }
+
+        function redirectToQuiz() {
+            const docId = getDocIdFromURL();
+            if (docId) {
+                window.location.href = `quiz.html?docId=${docId}`;
+            } else {
+                console.error("No document ID found in URL.");
+                alert("Error: Could not identify document. Please try again.");
+            }
+        }
+    </script>
+</body>
+</html>

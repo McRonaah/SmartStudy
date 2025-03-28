@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All History</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">Smart Study</div>
+        <div class="profile-section">
+            <a href="dashboard.html" class="back-button">Dashboard</a>
+            <button class="logout-button">Logout</button>
+            <div class="profile-icon"></div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <input type="text" id="search" placeholder="Search">
+        <div id="search-suggestions"></div>
+
+    <div class="history-container">
+        <h2>All History</h2>
+        <div class="history-list" id="all-history"></div>
+    </div>
+
+    <script type="module" src="all_history.js"></script>
+</body>
+</html>

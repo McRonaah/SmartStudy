@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quiz | Smart Study</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+    <nav class="quiz-navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-brain"></i>
+                <span>Smart Study</span>
+            </div>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="quiz_summary.html" id="summary-link" class="nav-link">
+                    <i class="fas fa-file-alt"></i> Summary
+                </a>
+                <div class="nav-dropdown">
+                    <a href="attempts.html" id="attempts-link" class="nav-link">
+                        <i class="fas fa-history"></i> Attempts
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="quiz-app-container">
+        <div class="quiz-header">
+            <div class="quiz-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <span id="progress-text">0/0 questions</span>
+            </div>
+            <div class="quiz-timer">
+                <i class="fas fa-clock"></i>
+                <span id="quiz-timer">00:00</span>
+            </div>
+        </div>
+
+        <div class="quiz-content">
+            <h1 id="quiz-title">Loading Quiz...</h1>
+            <div id="quiz-questions" class="questions-container"></div>
+            
+            <div class="quiz-controls">
+                <button id="prev-btn" class="quiz-btn">
+                    <i class="fas fa-arrow-left"></i> Previous
+                </button>
+                <button id="next-btn" class="quiz-btn primary">
+                    Next <i class="fas fa-arrow-right"></i>
+                </button>
+                <button id="submit-btn" class="quiz-btn submit">
+                    <i class="fas fa-paper-plane"></i> Submit Quiz
+                </button>
+            </div>
+        </div>
+
+        <div id="feedback-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2 id="modal-title">Quiz Results</h2>
+                <div id="modal-body"></div>
+                <button id="modal-close-btn" class="quiz-btn">Close</button>
+            </div>
+        </div>
+    </div>
+    <footer class="main-footer">
+        <p>© 2025 Smart Study. All rights reserved.</p>
+        
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="quiz.js"></script>
+</body>
+</html>

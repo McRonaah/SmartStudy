@@ -1,0 +1,68 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General styles for the page */
+body {
+    font-family: Arial, sans-serif; /* Ensure it matches your site's font */
+    background-color: #070707; /* Light background color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Container for the content */
+.logout-container {
+    text-align: center;
+    padding: 30px;
+    background-color: white; /* White background for container */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for 3D effect */
+}
+
+/* Large Handshake Icon */
+.handshake-icon {
+    font-size: 150px; /* Large size for the emoji */
+    color: #4CAF50; /* Green color to match theme */
+}
+
+/* Welcome Text */
+.welcome-text {
+    font-size: 24px;
+    margin-top: 20px;
+    color: #333; /* Dark gray text for better contrast */
+}
+
+/* Button to go back to the homepage or login page */
+.back-button {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none; /* Remove underline from link */
+    cursor: pointer;
+}
+
+/* Hover effect for the button */
+.back-button:hover {
+    background-color: #45a049; /* Slightly darker green when hovered */
+}
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #333; /* Dark background color for footer */
+    color: white; /* White text */
+    position: absolute;
+    bottom: 0;
+    width: 100%; /* Ensure it spans the full width of the page */
+    font-size: 14px; /* Smaller font size */
+}

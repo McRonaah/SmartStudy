@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attempt Details | Smart Study</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-brain"></i>
+                <span>Smart Study</span>
+            </div>
+            <div class="nav-links">
+                <a href="#" id="back-to-attempts" class="nav-link">
+                    <i class="fas fa-arrow-left"></i> Back to Attempts
+                </a>
+                <a href="#" id="summary-link" class="nav-link">
+                    <i class="fas fa-chart-bar"></i> Quiz Summary
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="attempt-header">
+            <h1>Attempt Review</h1>
+            <div class="attempt-meta">
+                <div class="meta-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span id="attempt-date">--</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-clock"></i>
+                    <span id="attempt-time">--</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="performance-summary">
+            <div class="score-card">
+                <div class="score-value" id="score-percentage">--</div>
+                <div class="score-label">Overall Score</div>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-item correct">
+                    <div class="stat-value" id="correct-count">--</div>
+                    <div class="stat-label">Correct</div>
+                </div>
+                <div class="stat-item incorrect">
+                    <div class="stat-value" id="incorrect-count">--</div>
+                    <div class="stat-label">Incorrect</div>
+                </div>
+                <div class="stat-item total">
+                    <div class="stat-value" id="total-questions">--</div>
+                    <div class="stat-label">Total Questions</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="questions-container" id="quiz-attempt">
+            <!-- Questions will be loaded here -->
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Smart Study. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="view_attempt.js"></script>
+</body>
+</html>

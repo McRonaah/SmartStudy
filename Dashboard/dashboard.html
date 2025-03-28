@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <i class="fas fa-brain"></i>
+            <span>Smart Study</span>
+        </div>
+        <div class="profile-section">
+            <a href="stats.html" class="nav-link">
+                <i class="fas fa-chart-line"></i> Statistics
+            </a>
+            <button class="logout-button">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+            <div class="profile-icon">
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="container">
+        <input type="text" id="search" placeholder="Search">
+        <div id="search-suggestions"></div> <!-- Add this line for search suggestions -->
+        
+        <h2>History</h2>
+        <div class="dashboard">
+            <div id="today-history" class="history-section">
+                <h3>Today</h3>
+                <div class="history-list"></div>
+            </div>
+            <div id="week-history" class="history-section">
+                <h3>This Week</h3>
+                <div class="history-list"></div>
+            </div>
+            <div id="month-history" class="history-section">
+                <h3>This Month</h3>
+                <div class="history-list"></div>
+            </div>
+        </div>
+
+        <button id="all-history-btn">View All History</button>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2025 PDF QUIZ GENERATORS. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js" type="module"></script>
+</body>
+</html>
