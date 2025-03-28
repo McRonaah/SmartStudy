@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "PDF Quiz Generator",
+  "version": "1.0",
+  "description": "Extract text from PDFs and generate quizzes/summaries",
+  "icons": {
+    "128": "./assets/S.png"
+  },
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "sidePanel",
+    "tabs",
+    "identity",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://*.supabase.co/*",
+    "https://*.chromiumapp.org/*"
+  ],
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "oauth2": {
+    "client_id": "98263805479-om0g1ln9os9u83h28h3f7vsbfhn0kvdf.apps.googleusercontent.com",
+    "scopes": ["openid", "email", "profile"]
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';"
+  }
+}

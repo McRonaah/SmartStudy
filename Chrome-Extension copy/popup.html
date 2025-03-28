@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>PDF Extractor</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <!-- (Optional) A container for additional UI -->
+  <div id="panel"></div>
+  
+  <!-- Top area with buttons -->
+  <div class="top">
+    <!-- This is the GET QUIZ button used to extract quiz questions -->
+    <div class="lev1">
+    <button id="quiz">GET QUIZ</button>
+    
+      <div class="file-input">
+        <label id="files" for="file">UPLOAD</label>
+        <input type="file" name="file" id="file"/>
+      </div>
+      
+    
+    
+    <button id="summary">GET SUMMARY</button>
+  </div>
+    <div class="lev2" id="button-container" >
+      <button id="get-quiz">Get Quiz</button>
+      <button id="get-summary">Get Summary</button>
+    </div>
+  </div>
+  
+ 
+  
+  <!-- Bottom area with a file input (if you also want manual upload) -->
+  <div class="bottom">
+    <div id="auth">
+      <button id="login-btn">
+        <img src="./assets/g.png" alt="G">
+        <span>Sign In with Google</span>
+      </button>
+      <div id="user-info" style="display: none;">
+        <button id="login-btn">
+          <img src="./assets/d.png" alt="d">
+          <span>Dashboard</span>
+        </button>
+        <div class="prof">
+        <img id="user-pic" src="" alt="Profile Picture" >
+        <p id="user-name" style="color: white;"></p>
+      </div>
+        <button id="logout-btn">Logout</button>
+      </div>
+    </div>
+    
+   
+  </div>
+  
+  <div id="output"></div>
+  <div id="questions"></div>
+  
+  <script src="./lib/supabase.min.js"></script>
+  <!-- IMPORTANT: Load PDF.js first -->
+  <script src="pdfjs/pdf.min.js"></script>
+  <!-- Then load our popup logic -->
+  <script src="popup.js"></script>
+</body>
+</html>
